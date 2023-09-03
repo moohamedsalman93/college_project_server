@@ -1,0 +1,215 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Department {
+  depCode  String    @id @unique
+  name     String
+  subjects Subject[]
+}
+
+// Define the Subject model
+model Subject {
+  id           Int        @id @default(autoincrement())
+  subCode      String
+  name         String
+  department   Department @relation(fields: [departmentId], references: [depCode])
+  departmentId String
+  CourseMark   pos[]
+  students     Student[]
+}
+
+model pos {
+  id         Int     @id @default(autoincrement())
+  CourseCode String
+  subject    Subject @relation(fields: [subjectId], references: [id])
+  subjectId  Int
+  c01p1      Int
+  c01p2      Int
+  c01p3      Int
+  c01p4      Int
+  c01p5      Int
+
+  c02p1 Int
+  c02p2 Int
+  c02p3 Int
+  c02p4 Int
+  c02p5 Int
+
+  c03p1 Int
+  c03p2 Int
+  c03p3 Int
+  c03p4 Int
+  c03p5 Int
+
+  c04p1 Int
+  c04p2 Int
+  c04p3 Int
+  c04p4 Int
+  c04p5 Int
+
+  c05p1 Int
+  c05p2 Int
+  c05p3 Int
+  c05p4 Int
+  c05p5 Int
+}
+
+// Define the Student model
+model Student {
+  id         Int          @id @default(autoincrement())
+  Regno  String
+  subject    Subject      @relation(fields: [subjectId], references: [id])
+  subjectId  Int
+  CIA1       CIA1[]
+  CIA2       CIA2[]
+  ESE        ESE[]
+  TotalCIA   TotalCIA[]
+  Assignment Assignment[]
+}
+
+model CIA1 {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  Q1        Int
+  Q2        Int
+  Q3        Int
+  Q4        Int
+  Q5        Int
+  Q6        Int
+  Q7        Int
+  Q8        Int
+  Q9        Int
+  Q10       Int
+  Q11       Int
+  Q12       Int
+  Q13       Int
+  Q14       Int
+  Q15       Int
+  Q16       Int
+  Q17       Int
+  Q18       Int
+  Q19       Int
+  Q20       Int
+  Q21       Int
+  Q22       Int
+  Q23       Int
+  Q24       Int
+  Q25       Int
+  Q26       Int
+  Q27       Int
+  Q28       Int
+  CO1       Int
+  CO2       Int
+  CO3       Int
+  CO4       Int
+  CO5       Int
+}
+
+model CIA2 {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  Q1        Int
+  Q2        Int
+  Q3        Int
+  Q4        Int
+  Q5        Int
+  Q6        Int
+  Q7        Int
+  Q8        Int
+  Q9        Int
+  Q10       Int
+  Q11       Int
+  Q12       Int
+  Q13       Int
+  Q14       Int
+  Q15       Int
+  Q16       Int
+  Q17       Int
+  Q18       Int
+  Q19       Int
+  Q20       Int
+  Q21       Int
+  Q22       Int
+  Q23       Int
+  Q24       Int
+  Q25       Int
+  Q26       Int
+  Q27       Int
+  Q28       Int
+  CO1       Int
+  CO2       Int
+  CO3       Int
+  CO4       Int
+  CO5       Int
+}
+
+model ESE {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  Q1        Int
+  Q2        Int
+  Q3        Int
+  Q4        Int
+  Q5        Int
+  Q6        Int
+  Q7        Int
+  Q8        Int
+  Q9        Int
+  Q10       Int
+  Q11       Int
+  Q12       Int
+  Q13       Int
+  Q14       Int
+  Q15       Int
+  Q16       Int
+  Q17       Int
+  Q18       Int
+  Q19       Int
+  Q20       Int
+  Q21       Int
+  Q22       Int
+  Q23       Int
+  Q24       Int
+  Q25       Int
+  Q26       Int
+  Q27       Int
+  Q28       Int
+  CO1       Int
+  CO2       Int
+  CO3       Int
+  CO4       Int
+  CO5       Int
+}
+
+model TotalCIA {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  CO1       Int
+  CO2       Int
+  CO3       Int
+  CO4       Int
+  CO5       Int
+}
+
+model Assignment {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  Q1        Int
+  Q2        Int
+  CO1       Int
+  CO2       Int
+}
