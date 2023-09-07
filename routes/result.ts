@@ -9,6 +9,7 @@ export const userRouter = express.Router();
 
 userRouter.get("/dep", getDep);
 userRouter.get("/courseCode", courseCode);
+userRouter.post("/AddResult", AddResult);
 
 
 async function getDep(req: Request, res: Response) {
@@ -120,7 +121,6 @@ async function AddResult(req: Request, res: Response) {
         CO4: req.body.Q24 + req.body.Q25 + req.body.Q27,
         CO5: req.body.Q28
     }
-
 
     try {
 
@@ -374,7 +374,6 @@ async function AddResult(req: Request, res: Response) {
     }
 }
 
-
 async function getCourse(req: Request, res: Response) {
 
     const { dep, courseCode } = req.body
@@ -491,11 +490,43 @@ async function getCourse(req: Request, res: Response) {
 
         let averageAttain = (overAll.CO1 + overAll.CO2 + overAll.CO3 + overAll.CO4 + overAll.CO5) / 5
 
-        return res.json({ message: 'Student created or already exists' });
+        let direct80 = (80 * averageAttain) / 100
+
+        res.status(200).json({
+            success: {
+                message: "Total calculated and added successfully",
+
+                above40CO1,
+                above40CO2,
+                above40CO3,
+                above40CO4,
+                above40CO5,
+                percenatgeTotalCia,
+                attainmentLevelsTotalCia,
+
+
+                above40ESECO1,
+                above40ESECO2,
+                above40ESECO3,
+                above40ESECO4,
+                above40ESECO5,
+                ESEpercenatge,
+                ESEattainmentLevels,
+
+                overAll,
+                averageAttain,
+                direct80,
+            },
+        });
 
     } catch (error) {
-        console.error('Error fetching results:', error);
-        return res.status(500).json({ error: 'An error occurred while fetching results.' });
+        console.error(error);
+        res.status(500).json({
+            error: {
+                message: "Internal server error",
+            },
+        });
     }
+
 }
 
